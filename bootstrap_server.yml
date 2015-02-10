@@ -1,0 +1,11 @@
+---
+- name: Setup Ubuntu for using with lleo's website engine
+  hosts: all
+  gather_facts: yes
+  sudo: yes
+
+  roles:
+    - updated
+    - secured
+    - php-fpm-nginx
+    - lleo-minstall
