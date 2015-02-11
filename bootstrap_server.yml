@@ -1,11 +1,14 @@
 ---
 - name: Setup Ubuntu for using with lleo's website engine
   hosts: all
-  gather_facts: yes
+  gather_facts: no
   sudo: yes
+  vars_files:
+    - settings.yml
 
   roles:
     - updated
     - secured
+    - mariadb
     - php-fpm-nginx
     - lleo-minstall
