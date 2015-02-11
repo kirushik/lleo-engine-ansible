@@ -1,0 +1,17 @@
+---
+- name: Install ufw firewall
+  apt: name=ufw state=present
+
+- name: Open desired ports
+  ufw: rule=allow port={{ item }} proto=tcp
+  with_items:
+    - 22
+    - 80
+
+- name: Turn ufw on
+  ufw: state=enabled
+
+- name: Overwrite sshd config
+  copy: src=sshd_config dest=/etc/ssh/sshd_config
+  notify:
+    - restart ssh daemon
