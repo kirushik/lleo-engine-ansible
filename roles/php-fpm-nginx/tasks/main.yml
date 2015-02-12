@@ -1,0 +1,9 @@
+---
+- name: Install php5-fpm
+  apt: name=php5-fpm state=present
+
+- name: Install php5-mysqlnd
+  apt: name=php5-mysqlnd state=present
+
+- name: Install nginx
+  apt: name=nginx-light state=present
