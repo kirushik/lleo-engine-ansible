@@ -11,4 +11,5 @@
     - secured
     - mariadb
     - php-fpm-nginx
+    - postfix
     - lleo-minstall
