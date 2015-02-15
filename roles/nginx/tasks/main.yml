@@ -1,0 +1,6 @@
+---
+
+- name: Install nginx
+  apt: name=nginx-light state=present
+
+# TODO: Create nginx profile for each php-fpm pool

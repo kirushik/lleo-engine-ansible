@@ -1,0 +1,13 @@
+---
+- name: Install php5-fpm
+  apt: name=php5-fpm state=present
+
+- name: Install php5-mysqlnd
+  apt: name=php5-mysqlnd state=present
+
+- name: Remove defaul php-fpm pool
+  file: name=/etc/php5/fpm/pool.d/www.conf state=absent
+
+- name: Create php-fpm pools
+  template: src=pool.conf.j2 dest=/etc/php5/fpm/pool.d/{{item.key}}.conf
+  with_dict: engines
