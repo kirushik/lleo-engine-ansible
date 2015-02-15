@@ -87,3 +87,6 @@ UsePAM no
 
 # Speed up ssh login process by logging only IPs, not looked up hostnames
 UseDNS no
+
+# Allow only members of ssh group
+AllowGroups ssh
