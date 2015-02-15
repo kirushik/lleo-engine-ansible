@@ -1,3 +1,6 @@
 ---
- hostname: new.lleo.me
- mysql_root_password: KAHxn(sdFXASh=xO
+engines: 
+  dnevnik:
+    hostname: new.lleo.me
+
+mysql_root_password: KAHxn(sdFXASh=x1
