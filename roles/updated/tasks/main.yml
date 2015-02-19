@@ -1,2 +1,4 @@
 - name: Update apt packages if needed
   apt: update_cache=yes cache_valid_time=3600 upgrade=safe
+
+# TODO Set up unattended upgrades here

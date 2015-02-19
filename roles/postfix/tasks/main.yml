@@ -1,3 +1,5 @@
 ---
 - name: Install postfix
   apt: name=postfix state=present
+
+# TODO: Create postfix config for specified email provider

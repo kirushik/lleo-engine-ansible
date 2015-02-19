@@ -7,11 +7,29 @@
 - name: Set MariaDB root password for installation
   debconf: name=mysql-server-10.0 question='mysql-server/root_password' value={{ mysql_root_password }} vtype=password
   changed_when: False # Never report as changed
-- name: Set MariaDB root password confirmation
+- name: Set MariaDB root password confirmation for installation
   debconf: name=mysql-server-10.0 question='mysql-server/root_password_again' value={{ mysql_root_password }} vtype=password
   changed_when: False # Never report as changed
 
 - name: Install the MariaDB server
   apt: name=mariadb-server state=present
+
 - name: Start MariaDB server (and enable its autostart)  
   service: name=mysql state=started enabled=yes
+
+- name: Install auth_socket plugin for MariaDB (to live without passwords)
+  command: mysql -u root --password='{{ mysql_root_password }}' -e "INSTALL PLUGIN unix_socket SONAME 'auth_socket.so'"
+  ignore_errors: yes
+  # It's OK to fail here if we already have a plugin installed
+
+- name: Create MariaDB user for dnevnik
+  command: mysql -u root --password='{{ mysql_root_password }}' -e "CREATE USER 'dnevnik'@'localhost' IDENTIFIED WITH unix_socket"
+  ignore_errors: yes
+  # It's OK to fail here if user already there
+
+- name: Create MariaDB user for current sudoer
+  command: mysql -u root --password='{{ mysql_root_password }}' -e "CREATE USER '{{ ansible_env.SUDO_USER }}'@'localhost' IDENTIFIED WITH unix_socket"
+  ignore_errors: yes
+  # It's OK to fail here if user already there
+
+# TODO: Add proper MariaDB config with socket-only access

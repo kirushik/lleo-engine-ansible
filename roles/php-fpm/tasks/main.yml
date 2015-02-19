@@ -8,6 +8,7 @@
 - name: Remove defaul php-fpm pool
   file: name=/etc/php5/fpm/pool.d/www.conf state=absent
 
-- name: Create php-fpm pools
-  template: src=pool.conf.j2 dest=/etc/php5/fpm/pool.d/{{item.key}}.conf
-  with_dict: engines
+- name: Create php-fpm pool for our engine
+  copy: src=pool.conf dest=/etc/php5/fpm/pool.d/dnevnik.conf
+
+# TODO Setup proper logging in php-fpm config

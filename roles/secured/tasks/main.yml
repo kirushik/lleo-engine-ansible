@@ -19,14 +19,11 @@
   notify:
     - restart ssh daemon
 
-- name: Create users for each engine instance
-  user: name={{item.key}}_user shell=/dev/null system=yes
-  with_dict: engines
+- name: Create user for lleo engine
+  user: name=dnevnik shell=/dev/null system=yes
 
 - name: Add current sudoer to all those user's groups
-  user: name={{ansible_env.SUDO_USER}} groups={{item.key}}_user append=yes
-  with_dict: engines
+  user: name={{ansible_env.SUDO_USER}} groups=dnevnik append=yes
 
-- name: User setgid on all engine folders
-  file: name=~{{item.key}}_user mode=2770
-  with_dict: engines
+- name: User setgid on engine folder
+  file: name=~dnevnik mode=2770
