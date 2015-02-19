@@ -2,8 +2,11 @@
 - name: Install php5-fpm
   apt: name=php5-fpm state=present
 
-- name: Install php5-mysqlnd
+- name: Install php5 mysqlnd module
   apt: name=php5-mysqlnd state=present
+
+- name: Install php5 GD module
+  apt: name=php5-gd state=present
 
 - name: Remove defaul php-fpm pool
   file: name=/etc/php5/fpm/pool.d/www.conf state=absent
