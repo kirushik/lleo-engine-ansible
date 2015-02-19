@@ -13,7 +13,7 @@ server {
   server_name {{ hostname }};
 
   location / {
-    try_files $uri $uri/ index.php;
+    try_files $uri $uri/ /index.php;
 
     location ~ \.php$ {
       fastcgi_split_path_info ^(.+\.php)(/.+)$;
