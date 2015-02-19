@@ -1,12 +1,10 @@
 ---
-- name: Install php5-fpm
-  apt: name=php5-fpm state=present
-
-- name: Install php5 mysqlnd module
-  apt: name=php5-mysqlnd state=present
-
-- name: Install php5 GD module
-  apt: name=php5-gd state=present
+- name: Install php5-fpm and required modules
+  apt: name={{ item }} state=present
+  with_items:
+    - php5-fpm
+    - php5-mysqlnd
+    - php5-gd
 
 - name: Remove defaul php-fpm pool
   file: name=/etc/php5/fpm/pool.d/www.conf state=absent
