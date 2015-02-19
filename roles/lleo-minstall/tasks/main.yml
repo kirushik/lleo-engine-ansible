@@ -1,4 +1,7 @@
 ---
 
 - name: Fetch lleo's minstall.php for each of engine instances
-  get_url: url=http://lleo.me/blog/install?minstall.php dest=~dnevnik/minstall.php  owner=dnevnik mode=0660
+  get_url: url=http://lleo.me/blog/install?minstall.php dest=/var/www/dnevnik/minstall.php  owner=dnevnik mode=0660
+
+- name: Setting up config.php
+  template: src=config.php.j2 dest=/var/www/dnevnik/config.php

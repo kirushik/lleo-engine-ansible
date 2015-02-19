@@ -11,7 +11,7 @@
 - name: Turn ufw on
   ufw: state=enabled
 
-- name: Restrict ssh access to current user only
+- name: Add current user to ssh group to allow ssh access with new config
   user: name={{ansible_env.SUDO_USER}} groups=ssh append=yes
 
 - name: Overwrite sshd config
@@ -22,8 +22,11 @@
 - name: Create user for lleo engine
   user: name=dnevnik shell=/dev/null system=yes
 
-- name: Add current sudoer to all those user's groups
-  user: name={{ansible_env.SUDO_USER}} groups=dnevnik append=yes
+- name: Add current sudoer to www-data group
+  user: name={{ansible_env.SUDO_USER}} groups=www-data append=yes
+
+- name: Create folder for lleo engine
+  file: path=/var/www/dnevnik owner=dnevnik group=www-data state=directory mode=2770
 
 - name: User setgid on engine folder
-  file: name=~dnevnik mode=2770
+  file: name=/var/www/dnevnik mode=2770
