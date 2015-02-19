@@ -22,14 +22,13 @@
   ignore_errors: yes
   # It's OK to fail here if we already have a plugin installed
 
+- name: Create database 'dnevnik'
+  command: mysql -u root --password='{{ mysql_root_password }}' -e "CREATE DATABASE {{ database_name }}"
+
 - name: Create MariaDB user for dnevnik
-  command: mysql -u root --password='{{ mysql_root_password }}' -e "CREATE USER 'dnevnik'@'localhost' IDENTIFIED WITH unix_socket"
-  ignore_errors: yes
-  # It's OK to fail here if user already there
+  command: mysql -u root --password='{{ mysql_root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ database_name }}.* TO 'dnevnik'@'localhost' IDENTIFIED WITH unix_socket"
 
 - name: Create MariaDB user for current sudoer
-  command: mysql -u root --password='{{ mysql_root_password }}' -e "CREATE USER '{{ ansible_env.SUDO_USER }}'@'localhost' IDENTIFIED WITH unix_socket"
-  ignore_errors: yes
-  # It's OK to fail here if user already there
+  command: mysql -u root --password='{{ mysql_root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ database_name }}.* TO '{{ ansible_env.SUDO_USER }}'@'localhost' IDENTIFIED WITH unix_socket"
 
 # TODO: Add proper MariaDB config with socket-only access
