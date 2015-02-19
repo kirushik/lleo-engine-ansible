@@ -9,6 +9,7 @@
   file: name=/etc/php5/fpm/pool.d/www.conf state=absent
 
 - name: Create php-fpm pool for our engine
-  copy: src=pool.conf dest=/etc/php5/fpm/pool.d/dnevnik.conf
+  copy: src=dnevnik.conf dest=/etc/php5/fpm/pool.d/dnevnik.conf
+  notify: restart php-fpm
 
 # TODO Setup proper logging in php-fpm config

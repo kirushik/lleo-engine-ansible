@@ -1,0 +1,29 @@
+upstream dnevnik {
+  server unix:/var/run/dnevnik-fpm.sock;
+}
+
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server ipv6only=on;
+
+  root /home/dnevnik;
+  index index.html index.htm;
+
+  # Make site accessible from http://localhost/
+  server_name {{ hostname }};
+
+  location / {
+    try_files $uri $uri/ index.php;
+
+    location ~ \.php$ {
+      fastcgi_split_path_info ^(.+\.php)(/.+)$;
+      # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+      
+      # With php5-fpm:
+      fastcgi_pass unix:/var/run/dnevnik-fpm.sock;
+      fastcgi_index index.php;
+      include fastcgi_params;
+    }
+  }
+
+}
