@@ -2,4 +2,14 @@
 - name: Install postfix
   apt: name=postfix state=present
 
-# TODO: Create postfix config for specified email provider
+- name: Enable postfix on startup
+  service: name=postfix state=started enabled=yes
+
+- name: Install postfix configs
+  template: src={{ item }}.j2 dest=/etc/postfix/{{ item }}
+  with_items:
+    - main.cf
+    - sasl/passwd
+  notify:
+    - rebuild postfix password db
+    - restart postfix

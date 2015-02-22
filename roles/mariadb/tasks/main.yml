@@ -5,7 +5,7 @@
   apt_repository: repo='deb http://mariadb.mirror.iweb.com//repo/10.0/ubuntu {{ ansible_distribution_release }} main' state=present
 
 - name: Set MariaDB root password for installation
-  debconf: name=mysql-server-10.0 question='{{ item }}' value={{ mysql_root_password }} vtype=password
+  debconf: name=mysql-server-10.0 question='{{ item }}' value={{ mysql.root_password }} vtype=password
   with_items:
     - mysql-server/root_password
     - mysql-server/root_password_again
@@ -21,20 +21,20 @@
   service: name=mysql state=started enabled=yes
 
 - name: Check if unix_socket authentication mechanism already supported
-  command: mysql -u root --password='{{ mysql_root_password }}' -e "SHOW PLUGINS"
+  command: mysql -u root --password='{{ mysql.root_password }}' -e "SHOW PLUGINS"
   register: available_plugins
 
 - name: Install auth_socket plugin for MariaDB (to live without passwords)
-  command: mysql -u root --password='{{ mysql_root_password }}' -e "INSTALL PLUGIN unix_socket SONAME 'auth_socket.so'"
-  when: not available_plugins['stdout'] | search("unix_socket")
+  command: mysql -u root --password='{{ mysql.root_password }}' -e "INSTALL PLUGIN unix_socket SONAME 'auth_socket.so'"
+  when: not available_plugins.stdout | search("unix_socket")
 
 - name: Create database 'dnevnik'
-  command: mysql -u root --password='{{ mysql_root_password }}' -e "CREATE DATABASE IF NOT EXISTS {{ database_name }}"
+  command: mysql -u root --password='{{ mysql.root_password }}' -e "CREATE DATABASE IF NOT EXISTS {{ mysql.database }}"
 
 - name: Create MariaDB user for dnevnik
-  command: mysql -u root --password='{{ mysql_root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ database_name }}.* TO 'dnevnik'@'localhost' IDENTIFIED WITH unix_socket"
+  command: mysql -u root --password='{{ mysql.root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ mysql.database }}.* TO 'dnevnik'@'localhost' IDENTIFIED WITH unix_socket"
 
 - name: Create MariaDB user for current sudoer
-  command: mysql -u root --password='{{ mysql_root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ database_name }}.* TO '{{ ansible_env.SUDO_USER }}'@'localhost' IDENTIFIED WITH unix_socket"
+  command: mysql -u root --password='{{ mysql.root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ mysql.database }}.* TO '{{ ansible_env.SUDO_USER }}'@'localhost' IDENTIFIED WITH unix_socket"
 
 # TODO: Add proper MariaDB config with socket-only access
