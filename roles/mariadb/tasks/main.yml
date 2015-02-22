@@ -5,14 +5,17 @@
   apt_repository: repo='deb http://mariadb.mirror.iweb.com//repo/10.0/ubuntu {{ ansible_distribution_release }} main' state=present
 
 - name: Set MariaDB root password for installation
-  debconf: name=mysql-server-10.0 question='mysql-server/root_password' value={{ mysql_root_password }} vtype=password
-  changed_when: False # Never report as changed
-- name: Set MariaDB root password confirmation for installation
-  debconf: name=mysql-server-10.0 question='mysql-server/root_password_again' value={{ mysql_root_password }} vtype=password
+  debconf: name=mysql-server-10.0 question='{{ item }}' value={{ mysql_root_password }} vtype=password
+  with_items:
+    - mysql-server/root_password
+    - mysql-server/root_password_again
   changed_when: False # Never report as changed
 
-- name: Install the MariaDB server
-  apt: name=mariadb-server state=present
+- name: Install the MariaDB server and php drivers
+  apt: name={{ item }} state=present
+  with_items:
+    - mariadb-server
+    - php5-mysqlnd
 
 - name: Start MariaDB server (and enable its autostart)  
   service: name=mysql state=started enabled=yes

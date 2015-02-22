@@ -3,7 +3,6 @@
   apt: name={{ item }} state=present
   with_items:
     - php5-fpm
-    - php5-mysqlnd
     - php5-gd
 
 - name: Remove defaul php-fpm pool

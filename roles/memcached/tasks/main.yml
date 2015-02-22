@@ -1,9 +1,9 @@
 ---
 - name: Install memcached and it's php driver
-  apt: name=memcached state=present
+  apt: name={{item}} state=present
   with_items:
     - memcached
-    - php5-memcached
+    - php5-memcache
 
 - name: Enable memcached service on startup
   service: name=memcached state=started enabled=yes

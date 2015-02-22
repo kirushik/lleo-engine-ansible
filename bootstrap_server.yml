@@ -10,8 +10,8 @@
     - updated
     - secured
     - mariadb
+    - memcached
+    - postfix
     - php-fpm
     - nginx
-    - postfix
-    - memcached
     - lleo-minstall
