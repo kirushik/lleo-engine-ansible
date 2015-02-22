@@ -1,4 +1,10 @@
 ---
 hostname: new.lleo.me
-mysql_root_password: KAHxn(sdFXASh=x1
-database_name: dnevnik
+mysql:
+  root_password: KAHxn(sdFXASh=x1
+  database: dnevnik
+mail:
+  server: smtp.yandex.ru
+  port: 587
+  username: psychopomp@yandex.ru
+  password: 12345
