@@ -14,4 +14,4 @@
     - postfix
     - php-fpm
     - nginx
-    - lleo-minstall
+    - lleo-engine
