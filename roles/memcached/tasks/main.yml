@@ -4,6 +4,7 @@
   with_items:
     - memcached
     - php5-memcache
+    - php5-memcached
 
 - name: Enable memcached service on startup
   service: name=memcached state=started enabled=yes
