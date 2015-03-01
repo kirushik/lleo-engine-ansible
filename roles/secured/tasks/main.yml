@@ -22,11 +22,5 @@
 - name: Create user for lleo engine
   user: name=dnevnik shell=/dev/null system=yes
 
-- name: Add current sudoer to www-data group
-  user: name={{ansible_env.SUDO_USER}} groups=www-data append=yes
-
-- name: Create folder for lleo engine
-  file: path=/var/www/dnevnik owner=dnevnik group=www-data state=directory mode=2770
-
-- name: User setgid on engine folder
-  file: name=/var/www/dnevnik mode=2770
+- name: Add current sudoer to the dnevnik group
+  user: name={{ansible_env.SUDO_USER}} groups=dnevnik append=yes

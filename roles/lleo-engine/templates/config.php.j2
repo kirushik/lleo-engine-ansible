@@ -1,7 +1,7 @@
 <?php
 
-$fchmod=0644; //create files with permissions
-$dchmod=0755; //create folders with permissions
+$fchmod=0664; //create files with permissions
+$dchmod=0775; //create folders with permissions
 
 $mnogouser=0; // 1 - включить многопользовательский режим движка (если 0 - стэндалон)
 $xdomain='x';
@@ -15,21 +15,21 @@ $a="1"; if(ini_get('register_globals')!=false) foreach(array_merge($_GET,$_POST,
 	$admin_hash="";
 
 # хостинг
-	$httpsite = "http://{{ hostname }}"; // "http://lleo.aha.ru";
-	$blogdir = ""; // "blog/";
+	$httpsite = "http://{{ engine.hostname }}"; // "http://lleo.aha.ru";
+	$blogdir = "{{ engine.subdir }}"; // "blog/";
 
 # параметры mysql
-	$msq_host = ""; // "localhost";
-	$msq_login = ""; // "lleo";
+	$msq_host = "localhost"; // "localhost";
+	$msq_login = "dnevnik"; // "lleo";
 	$msq_pass = ""; // "fRdВtn23jNM1";
-	$msq_basa = ""; // "lleoblog";
+	$msq_basa = "dnevnik"; // "lleoblog";
 	$msq_charset = "cp1251";
 
 # имя блога
 	$admin_name = ""; // "Леонид Каганов";
-	$admin_mail = ""; // "lleo@aha.ru";
-	$blog_name = ""; // "lleo.aha.ru";
-	$admin_site = ""; // "lleo.aha.ru"; // для формы поиска по яндексу - сюда можно записать не сайт, а блог
+	$admin_mail = "{{ mail.username }}"; // "lleo@aha.ru";
+	$blog_name = "{{ engine.hostname }}"; // "lleo.aha.ru";
+	$admin_site = "{{ engine.hostname }}{{ engine.subdir }}"; // "lleo.aha.ru"; // для формы поиска по яндексу - сюда можно записать не сайт, а блог
 
 	$admin_ljuser=""; // "ЖЖ для скачивания или репостинга, например lleo-kaganov";
 	$admin_ljpass=""; // "пароль ЖЖ для постинга заметок";
@@ -46,7 +46,7 @@ $redirect_www = 1; // если включить - будет редиректи�
 	$koldunstvo = "_md5_"; // "у опушки продала лиса волнушки";
 	$hashinput = "_md5_"; // "всякая дурь всякая дурь"; // строка для вывода хэшиков каждой страницы
 	$hashlogin = "_md5_"; // "прамамамамама"; // допаролька - залогиненные юзеры
-        $newhash_user = "_md5_"; // "прамамамамама"; // допаролька - залогиненные юзеры
+	$newhash_user = "_md5_"; // "прамамамамама"; // допаролька - залогиненные юзеры
 
 $passip=0; // кодирование админского пароля через IP
 

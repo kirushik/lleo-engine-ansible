@@ -1,7 +1,14 @@
 ---
+- name: Create folder for lleo engine, with gid set
+  file: path=/var/www/dnevnik owner=dnevnik group=dnevnik state=directory mode=2770
 
-- name: Fetch lleo's minstall.php for each of engine instances
-  get_url: url=http://lleo.me/blog/install?minstall.php dest=/var/www/dnevnik/minstall.php  owner=dnevnik mode=0660
+- name: Fetch installation bundle
+  get_url: url={{ install_from }}/{{ item }} dest=/var/www/dnevnik
+  with_url:
+    - http://lleo.me/installall.txt
 
 - name: Setting up config.php
-  template: src=config.php.j2 dest=/var/www/dnevnik/config.php owner=dnevnik
+  template: src=config.php.j2 dest=/var/www/dnevnik/config.php owner=dnevnik group=dnevnik mode=664
+
+- name: Ensure correct permissions on /var/www/dnevnik
+  file: path=/var/www/dnevnik owner=dnevnik group=dnevnik recurse=yes

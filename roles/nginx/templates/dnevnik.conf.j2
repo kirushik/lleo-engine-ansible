@@ -10,7 +10,7 @@ server {
   index index.html index.htm;
 
   # Make site accessible from http://localhost/
-  server_name {{ hostname }};
+  server_name {{ engine.hostname }};
 
   location / {
     try_files $uri $uri/ /index.php;
