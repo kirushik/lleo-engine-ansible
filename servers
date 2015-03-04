@@ -1,4 +1,6 @@
 [canada]
 
 [local]
-local-dummy ansible_ssh_user=user
+
+[digital_ocean]
+lleo.pimenov.cc ansible_ssh_user=user

@@ -1,10 +1,15 @@
 ---
-hostname: new.lleo.me
+install_from: http://lleo.me
+engine:
+  hostname: lleo.pimenov.cc
+  subdir: ""
+  admin_name: Kirill
 mysql:
+  # TODO autogenerate this password
   root_password: KAHxn(sdFXASh=x1
   database: dnevnik
 mail:
   server: smtp.yandex.ru
-  port: 587
+  port: 465
   username: psychopomp@yandex.ru
   password: 12345

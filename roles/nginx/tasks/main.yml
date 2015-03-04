@@ -10,3 +10,7 @@
 - name: Install 
   template: src=dnevnik.conf.j2 dest=/etc/nginx/sites-enabled/dnevnik.conf
   notify: reload nginx
+
+- name: Add nginx user to the dnevnik group
+  user: name=www-data groups=dnevnik append=yes
+  notify: restart nginx

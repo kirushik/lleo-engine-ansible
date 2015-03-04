@@ -26,7 +26,7 @@ $a="1"; if(ini_get('register_globals')!=false) foreach(array_merge($_GET,$_POST,
 	$msq_charset = "cp1251";
 
 # имя блога
-	$admin_name = ""; // "Леонид Каганов";
+	$admin_name = "{{ engine.admin_name }}"; // "Леонид Каганов";
 	$admin_mail = "{{ mail.username }}"; // "lleo@aha.ru";
 	$blog_name = "{{ engine.hostname }}"; // "lleo.aha.ru";
 	$admin_site = "{{ engine.hostname }}{{ engine.subdir }}"; // "lleo.aha.ru"; // для формы поиска по яндексу - сюда можно записать не сайт, а блог
