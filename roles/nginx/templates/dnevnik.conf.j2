@@ -7,10 +7,11 @@ server {
   listen [::]:80 default_server ipv6only=on;
 
   root /var/www/dnevnik;
-  index index.html index.htm;
+  index index.html index.htm index.php;
 
-  # Make site accessible from http://localhost/
   server_name {{ engine.hostname }};
+
+  client_max_body_size 80M;
 
   location / {
     try_files $uri $uri/ /index.php;

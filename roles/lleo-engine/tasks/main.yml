@@ -11,11 +11,6 @@
 - name: Extract installer components into /var/www/dnevnik
   unarchive: src=/tmp/minimum.zip dest=/var/www/dnevnik copy=no
 
-# - name: Fetch installation bundle
-#   get_url: url={{ install_from }}/{{ item }} dest=/var/www/dnevnik
-#   with_url:
-#     - http://lleo.me/installall.txt
-
 - name: Setting up config.php
   template: src=config.php.j2 dest=/var/www/dnevnik/config.php owner=dnevnik group=dnevnik mode=664
 
