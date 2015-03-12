@@ -11,8 +11,13 @@
 - name: Extract installer components into /var/www/dnevnik
   unarchive: src=/tmp/minimum.zip dest=/var/www/dnevnik copy=no
 
+- name: Check if config.php is already there
+  stat: path=/var/www/dnevnik/config.php
+  register: config_present
+
 - name: Setting up config.php
   template: src=config.php.j2 dest=/var/www/dnevnik/config.php owner=dnevnik group=dnevnik mode=664
+  when: not config_present
 
 - name: Ensure correct permissions on /var/www/dnevnik
   file: path=/var/www/dnevnik owner=dnevnik group=dnevnik recurse=yes
