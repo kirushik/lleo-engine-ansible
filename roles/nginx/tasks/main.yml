@@ -7,9 +7,11 @@
   file: path=/etc/nginx/sites-enabled/default state=absent
   notify: reload nginx
 
-- name: Install 
+- name: Install proper nginx configuration
   template: src=dnevnik.conf.j2 dest=/etc/nginx/sites-enabled/dnevnik.conf
   notify: reload nginx
+
+# TODO Add proper expires: max to static files
 
 - name: Add nginx user to the dnevnik group
   user: name=www-data groups=dnevnik append=yes

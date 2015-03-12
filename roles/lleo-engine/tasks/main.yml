@@ -16,5 +16,3 @@
 
 - name: Ensure correct permissions on /var/www/dnevnik
   file: path=/var/www/dnevnik owner=dnevnik group=dnevnik recurse=yes
-
-# TODO сделать папку disable и запретить нгинксу доступ туда

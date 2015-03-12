@@ -13,6 +13,11 @@ server {
 
   client_max_body_size 80M;
 
+  location /hidden {
+    deny all;
+    return 404;
+  }
+
   location / {
     try_files $uri $uri/ /index.php;
 

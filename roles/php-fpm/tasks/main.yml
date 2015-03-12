@@ -20,4 +20,4 @@
   copy: src=dnevnik.conf dest=/etc/php5/fpm/pool.d/dnevnik.conf
   notify: restart php-fpm
 
-# TODO Setup proper logging in php-fpm config
+# TODO Optimize the php-fpm config for production performance

@@ -24,3 +24,9 @@
 
 - name: Add current sudoer to the dnevnik group
   user: name={{ansible_env.SUDO_USER}} groups=dnevnik append=yes
+
+- name: Create hidden folder for engine internals
+  file: path=/var/www/dnevnik/hidden owner=dnevnik state=directory
+
+- name: Create hidden subfolder for uploads
+  file: path=/var/www/dnevnik/hidden/uploads owner=dnevnik state=directory
