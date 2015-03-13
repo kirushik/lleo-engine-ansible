@@ -4,6 +4,7 @@
 - name: Plug in MariaDB repo (Canadian mirror)
   apt_repository: repo='deb  http://ams2.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu {{ ansible_distribution_release }} main' state=present
 
+  # TODO Don't run this if it is already set
 - name: Set MariaDB root password for installation
   debconf: name=mysql-server-10.0 question='{{ item }}' value={{ mysql.root_password }} vtype=password
   with_items:

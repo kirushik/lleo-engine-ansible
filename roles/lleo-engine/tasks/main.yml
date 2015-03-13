@@ -15,9 +15,17 @@
   stat: path=/var/www/dnevnik/config.php
   register: config_present
 
+- name: Install apg password generation tool
+  apt: name=apg state=present
+
+- name: Generate random salt for config
+  command: apg -a 1 -m 16 -n 1
+  register: random_salt
+  when: not config_present.stat.exists
+
 - name: Setting up config.php
   template: src=config.php.j2 dest=/var/www/dnevnik/config.php owner=dnevnik group=dnevnik mode=664
-  when: not config_present
+  when: not config_present.stat.exists
 
 - name: Ensure correct permissions on /var/www/dnevnik
   file: path=/var/www/dnevnik owner=dnevnik group=dnevnik recurse=yes

@@ -14,7 +14,7 @@
   notify: restart php-fpm
 
 - name: Create php-fpm logfile for dnevnik
-  file: name=/var/log/fpm-php.dnevnik.log owner=dnevnik state=touch
+  file: name=/var/log/php-fpm.dnevnik.log owner=dnevnik state=touch
 
 - name: Create php-fpm pool for our engine
   copy: src=dnevnik.conf dest=/etc/php5/fpm/pool.d/dnevnik.conf
