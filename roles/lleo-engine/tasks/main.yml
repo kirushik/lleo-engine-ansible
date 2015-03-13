@@ -3,13 +3,13 @@
   file: path=/var/www/dnevnik owner=dnevnik group=dnevnik state=directory mode=2770
 
 - name: Fetch lleo's installer to /tmp
-  get_url: url={{ install_from }}/dnevnik/minimum.zip dest=/tmp
+  get_url: url={{ install_from }}/minimum.zip dest=/tmp/minimum.zip force=yes
 
 - name: Install zip unarchiver
   apt: name=unzip state=present
 
 - name: Extract installer components into /var/www/dnevnik
-  unarchive: src=/tmp/minimum.zip dest=/var/www/dnevnik copy=no
+  unarchive: src=/tmp/minimum.zip dest=/var/www/dnevnik copy=no creates=/var/www/dnevnik/site_module/INSTALL.php
 
 - name: Check if config.php is already there
   stat: path=/var/www/dnevnik/config.php
