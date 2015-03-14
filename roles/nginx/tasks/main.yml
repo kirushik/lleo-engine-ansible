@@ -8,11 +8,11 @@
   notify: reload nginx
 
 - name: Install proper nginx configuration
-  template: src=dnevnik.conf.j2 dest=/etc/nginx/sites-enabled/dnevnik.conf
+  template: src=dnevnik.conf.j2 dest=/etc/nginx/sites-enabled/{{ engine.name }}.conf
   notify: reload nginx
 
 # TODO Add proper expires: max to static files
 
-- name: Add nginx user to the dnevnik group
-  user: name=www-data groups=dnevnik append=yes
+- name: Add nginx user to the {{ engine.name }} group
+  user: name=www-data groups={{ engine.name }} append=yes
   notify: restart nginx

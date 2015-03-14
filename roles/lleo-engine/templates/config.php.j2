@@ -20,9 +20,9 @@ $a='1'; if(ini_get('register_globals')!=false) foreach(array_merge($_GET,$_POST,
 
 # параметры mysql
 	$msq_host = 'localhost'; // 'localhost';
-	$msq_login = 'dnevnik'; // 'lleo';
+	$msq_login = '{{ engine.name }}'; // 'lleo';
 	$msq_pass = ''; // 'fRdВtn23jNM1';
-	$msq_basa = 'dnevnik'; // 'lleoblog';
+	$msq_basa = '{{ engine.name }}'; // 'lleoblog';
 	$msq_charset = 'cp1251';
 
 # имя блога

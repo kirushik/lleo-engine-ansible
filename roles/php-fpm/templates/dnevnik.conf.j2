@@ -1,7 +1,7 @@
 ; Start a new pool named 'dnevnik'.
 ; the variable $pool can we used in any directive and will be replaced by the
 ; pool name ('dnevnik' here)
-[dnevnik]
+[{{ engine.name }}]
 
 ; Per pool prefix
 ; It only applies on the following directives:
@@ -19,7 +19,7 @@
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
-user = dnevnik
+user = {{ engine.name }}
 ; group = www-data
 
 ; The address on which to accept FastCGI requests.
@@ -30,7 +30,7 @@ user = dnevnik
 ;                            specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-listen = /var/run/dnevnik-fpm.sock
+listen = /var/run/{{ engine.name }}-fpm.sock
 
 ; Set listen(2) backlog.
 ; Default Value: 65535 (-1 on FreeBSD and OpenBSD)
@@ -387,13 +387,13 @@ pm.max_requests = 500
 ;                specified at startup with the -d argument
 ;php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f www@my.domain.com
 php_flag[display_errors] = off
-php_admin_value[error_log] = /var/log/php-fpm.dnevnik.log
+php_admin_value[error_log] = /var/log/php-fpm.{{ engine.name }}.log
 php_admin_flag[log_errors] = on
 ;php_admin_value[memory_limit] = 32M
 
-php_admin_value[doc_root] = /var/www/dnevnik
-php_admin_value[open_basedir] = /var/www/dnevnik
-php_admin_value[upload_tmp_dir] = /var/www/dnevnik/hidden/uploads
+php_admin_value[doc_root] = /var/www/{{ engine.name }}
+php_admin_value[open_basedir] = /var/www/{{ engine.name }}
+php_admin_value[upload_tmp_dir] = /var/www/{{ engine.name }}/hidden/uploads
 
 php_value[upload_max_filesize] = 80M
 php_value[post_max_size] = 80M

@@ -1,12 +1,12 @@
-upstream dnevnik {
-  server unix:/var/run/dnevnik-fpm.sock;
+upstream {{ engine.name }} {
+  server unix:/var/run/{{ engine.name }}-fpm.sock;
 }
 
 server {
   listen 80 default_server;
   listen [::]:80 default_server ipv6only=on;
 
-  root /var/www/dnevnik;
+  root /var/www/{{ engine.name }};
   index index.html index.htm index.php;
 
   server_name {{ engine.hostname }};
@@ -25,7 +25,7 @@ server {
       fastcgi_split_path_info ^(.+\.php)(/.+)$;
       
       # With php5-fpm:
-      fastcgi_pass unix:/var/run/dnevnik-fpm.sock;
+      fastcgi_pass unix:/var/run/{{ engine.name }}-fpm.sock;
       fastcgi_index index.php;
       include fastcgi_params;
     }

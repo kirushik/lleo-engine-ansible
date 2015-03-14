@@ -1,9 +1,14 @@
 ---
-install_from: http://lleo.me
+install_from: http://lleo.me/dnevnik
 engine:
+  name: dnevnik
   hostname: lleo.pimenov.cc
   subdir: ""
+
   admin_name: Kirill
+  admin_email: kirushik@example.com
+  admin_password: 12345
+  # TODO Include other settings from config.php here
 mysql:
   # TODO autogenerate this password
   root_password: KAHxn(sdFXASh=x1

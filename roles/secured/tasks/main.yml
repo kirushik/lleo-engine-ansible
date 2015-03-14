@@ -20,13 +20,13 @@
     - restart ssh daemon
 
 - name: Create user for lleo engine
-  user: name=dnevnik shell=/dev/null system=yes
+  user: name={{ engine.name }} shell=/dev/null system=yes
 
-- name: Add current sudoer to the dnevnik group
-  user: name={{ansible_env.SUDO_USER}} groups=dnevnik append=yes
+- name: Add current sudoer to the {{ engine.name }} group
+  user: name={{ansible_env.SUDO_USER}} groups={{ engine.name }} append=yes
 
 - name: Create hidden folder for engine internals
-  file: path=/var/www/dnevnik/hidden owner=dnevnik state=directory
+  file: path=/var/www/{{ engine.name }}/hidden owner={{ engine.name }} state=directory
 
 - name: Create hidden subfolder for uploads
-  file: path=/var/www/dnevnik/hidden/uploads owner=dnevnik state=directory
+  file: path=/var/www/{{ engine.name }}/hidden/uploads owner={{ engine.name }} state=directory
