@@ -26,8 +26,8 @@ $a='1'; if(ini_get('register_globals')!=false) foreach(array_merge($_GET,$_POST,
 	$msq_charset = 'cp1251';
 
 # имя блога
-	$admin_name = '{{ engine.admin_name }}'; // 'Леонид Каганов';
-	$admin_mail = '{{ mail.username }}'; // 'lleo@aha.ru';
+	$admin_name = '{{ engine.admin.name }}'; // 'Леонид Каганов';
+	$admin_mail = '{{ engine.admin.email }}'; // 'lleo@aha.ru';
 	$blog_name = '{{ engine.hostname }}'; // 'lleo.aha.ru';
 	$admin_site = '{{ engine.hostname ~ engine.subdir }}'; // 'lleo.aha.ru'; // для формы поиска по яндексу - сюда можно записать не сайт, а блог
 
@@ -51,7 +51,7 @@ $redirect_www = 1; // если включить - будет редиректи�
 $passip=0; // кодирование админского пароля через IP
 
 $koldunstvo1 = '{{ random_salt.stdout ~ "_" ~ engine.hostname ~ "_" ~ engine.subdir }}_koldunstvo1';
-$admin_hash1 = '{{ (engine.admin_password ~ random_salt.stdout ~ "_" ~ engine.hostname ~ "_" ~ engine.subdir ~ "_koldunstvo1") | sha1 }}';
+$admin_hash1 = '{{ (engine.admin.password ~ random_salt.stdout ~ "_" ~ engine.hostname ~ "_" ~ engine.subdir ~ "_koldunstvo1") | sha1 }}';
 $readru_api='';
 $readru_partner='';
 
