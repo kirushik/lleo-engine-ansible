@@ -5,7 +5,6 @@
     - php5-fpm
     - php5-gd
     - php5-curl
-    - php5-imagick
     - php5-xcache
   notify: restart php-fpm
 

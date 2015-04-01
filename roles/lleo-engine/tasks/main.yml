@@ -9,7 +9,7 @@
   apt: name=unzip state=present
 
 - name: Extract installer components into /var/www/{{ engine.name }}
-  unarchive: src=/tmp/minimum.zip dest=/var/www/{{ engine.name }} copy=no creates=/var/www/{{ engine.name }}/site_module/INSTALL.php
+  unarchive: src=/tmp/minimum.zip dest=/var/www/{{ engine.name }} copy=no creates=/var/www/{{ engine.name }}/config.php
 
 - name: Check if config.php is already there
   stat: path=/var/www/{{ engine.name }}/config.php
@@ -18,14 +18,8 @@
 - name: Install apg password generation tool
   apt: name=apg state=present
 
-- name: Generate random salt for config
-  # We shouldn't allow quotes symbols and escaping slashes
-  command: apg -a 1 -m 128 -E \\\'\" -n 1
-  register: random_salt
-  when: not config_present.stat.exists
-
-- name: Setting up config.php
-  template: src=config.php.j2 dest=/var/www/{{ engine.name }}/config.php owner={{ engine.name }} group={{ engine.name }} mode=664
+- name: Run engine setup script
+  command: php  /var/www/{{engine.name}}/hidden/install_conf.php name={{engine.name}} hostname={{engine.hostname}} subdir={{engine.subdir}} admin_password={{engine.admin.password}} admin_name={{engine.admin.name}} admin_email={{engine.admin.email}}
   when: not config_present.stat.exists
 
 - name: Ensure correct permissions on /var/www/{{ engine.name }}

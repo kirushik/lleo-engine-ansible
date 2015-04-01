@@ -1,6 +1,0 @@
----
-- name: rebuild postfix password db
-  command: postmap /etc/postfix/sasl/passwd
-
-- name: restart postfix
-  service: name=postfix state=restarted

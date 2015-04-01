@@ -1,6 +1,2 @@
-[canada]
-
-[local]
-
-[digital_ocean]
+[servers]
 lleo.pimenov.cc ansible_ssh_user=user
