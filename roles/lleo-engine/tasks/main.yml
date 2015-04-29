@@ -9,6 +9,9 @@
   acl: name=/var/www/{{ engine.name }} entry="default:group:rwx" state=present
 
 
+- name: Install sendmail (engine uses it to send mail)
+  apt: name=sendmail state=present
+
 - name: Fetch lleo's installer to /tmp
   get_url: url={{ install_from }}/minimum.zip dest=/tmp/minimum.zip force=yes
 
