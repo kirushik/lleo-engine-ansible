@@ -2,7 +2,7 @@
 install_from: http://lleo.me/dnevnik
 engine:
   name: dnevnik
-  hostname: lleo.pimenov.cc
+  hostname: local.dev
   subdir: "" # Not working as expected at the moment
 
   admin:
