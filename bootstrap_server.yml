@@ -13,4 +13,5 @@
     - memcached
     - php-fpm
     - nginx
+    - newrelic
     - lleo-engine
