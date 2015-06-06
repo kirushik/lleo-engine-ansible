@@ -1,6 +1,7 @@
 ---
-- name: Create folder for lleo engine, with gid set
-  file: path=/var/www/{{ engine.name }} owner={{ engine.name }} group={{ engine.name }} state=directory mode=2770
+- name: Check if config.php is already there
+  stat: path=/var/www/{{ engine.name }}/config.php
+  register: config_present
 
 - name: Install sendmail (engine uses it to send mail)
   apt: name=sendmail state=present
@@ -10,22 +11,23 @@
 
 - name: Fetch lleo's installer to /tmp
   get_url: url={{ install_from }}/minimum.zip dest=/tmp/minimum.zip force=yes
+  when: not config_present.stat.exists
 
 - name: Install zip unarchiver
   apt: name=unzip state=present
 
 - name: Extract installer components into /var/www/{{ engine.name }}
-  unarchive: src=/tmp/minimum.zip dest=/var/www/{{ engine.name }} copy=no creates=/var/www/{{ engine.name }}/config.php
-
-- name: Check if config.php is already there
-  stat: path=/var/www/{{ engine.name }}/config.php
-  register: config_present
+  unarchive: src=/tmp/minimum.zip dest=/var/www/{{ engine.name }} copy=no creates=/var/www/{{ engine.name }}/hidden/install_conf.php
 
 - name: Install apg password generation tool
   apt: name=apg state=present
 
 - name: Run engine setup script
-  command: php  /var/www/{{engine.name}}/hidden/install_conf.php name={{engine.name}} hostname={{engine.hostname}} subdir={{engine.subdir}} admin_password={{engine.admin.password}} admin_name={{engine.admin.name}} admin_email={{engine.admin.email}}
+  command: php /var/www/{{engine.name}}/hidden/install_conf.php name={{engine.name}} hostname={{engine.hostname}} subdir={{engine.subdir}} admin_password={{engine.admin.password}} admin_name={{engine.admin.name}} admin_email={{engine.admin.email}}
+  args:
+    chdir: /var/www/{{engine.name}}/hidden
+    creates: /var/www/{{ engine.name }}/config.php
+
   when: not config_present.stat.exists
 
 - name: Ensure correct permissions on /var/www/{{ engine.name }}
