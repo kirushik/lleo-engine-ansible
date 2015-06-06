@@ -12,11 +12,6 @@ engine:
 mysql:
   root_password: KAHxn(sdFXASh=x1
   database: dnevnik
-mail:
-  server: smtp.yandex.ru
-  port: 465
-  username: psychopomp@yandex.ru
-  password: 12345
 newrelic:
   application_name: LLeo engine
   license_key: XXXXXXX

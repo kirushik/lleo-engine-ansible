@@ -18,6 +18,7 @@
   copy: src=sshd_config dest=/etc/ssh/sshd_config
   notify:
     - restart ssh daemon
+  when: vagrant is not defined
 
 - name: Create user for lleo engine
   user: name={{ engine.name }} shell=/dev/null system=yes

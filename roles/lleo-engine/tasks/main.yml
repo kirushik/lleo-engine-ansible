@@ -2,13 +2,6 @@
 - name: Create folder for lleo engine, with gid set
   file: path=/var/www/{{ engine.name }} owner={{ engine.name }} group={{ engine.name }} state=directory mode=2770
 
-- name: Install ACL manipulation tools
-  apt: name=acl state=present
-
-- name: Make sure that group write permissions are inherited
-  acl: name=/var/www/{{ engine.name }} entry="default:group:rwx" state=present
-
-
 - name: Install sendmail (engine uses it to send mail)
   apt: name=sendmail state=present
 
