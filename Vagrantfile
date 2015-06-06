@@ -10,6 +10,8 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
 
+  config.vm.synced_folder "dnevnik/", "/var/www/dnevnik", owner: 999, group: 999
+
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "bootstrap_server.yml"
     ansible.extra_vars = {
