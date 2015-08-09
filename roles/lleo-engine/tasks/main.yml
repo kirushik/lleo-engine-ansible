@@ -10,7 +10,7 @@
   apt: name=whois state=present
 
 - name: Fetch lleo's installer to /tmp
-  get_url: url={{ install_from }}/minimum.zip dest=/tmp/minimum.zip force=yes
+  get_url: url={{ install_from }}/minimum.zip dest=/tmp/minimum.zip force=yes validate_certs=no
   when: not config_present.stat.exists
 
 - name: Install zip unarchiver
