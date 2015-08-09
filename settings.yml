@@ -1,5 +1,5 @@
 ---
-install_from: http://lleo.me/dnevnik
+install_from: https://lleo.me/dnevnik
 engine:
   name: dnevnik
   hostname: local.dev
