@@ -1,3 +1,6 @@
+- name: Install latest python 2.7 repo
+  apt_repository: repo='ppa:fkrull/deadsnakes-python2.7'
+
 - name: Update apt packages if needed
   apt: update_cache=yes cache_valid_time=3600 upgrade=safe
 
