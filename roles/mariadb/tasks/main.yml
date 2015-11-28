@@ -16,25 +16,27 @@
   with_items:
     - mariadb-server
     - php5-mysqlnd
+    - python-mysqldb # Required for mysql admin modules to work
 
-- name: Start MariaDB server (and enable its autostart)  
+- name: Start MariaDB server (and enable its autostart)
   service: name=mysql state=started enabled=yes
 
 - name: Check if unix_socket authentication mechanism already supported
   command: mysql -u root --password='{{ mysql.root_password }}' -e "SHOW PLUGINS"
   register: available_plugins
+  changed_when: False
 
 - name: Install auth_socket plugin for MariaDB (to live without passwords)
   command: mysql -u root --password='{{ mysql.root_password }}' -e "INSTALL PLUGIN unix_socket SONAME 'auth_socket.so'"
   when: not available_plugins.stdout | search("unix_socket")
 
 - name: Create database 'dnevnik'
-  command: mysql -u root --password='{{ mysql.root_password }}' -e "CREATE DATABASE IF NOT EXISTS {{ mysql.database }}"
+  mysql_db: login_user=root login_password={{ mysql.root_password }} name={{ mysql.database }}
 
 - name: Create MariaDB user for dnevnik
   command: mysql -u root --password='{{ mysql.root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ mysql.database }}.* TO '{{ engine.name }}'@'localhost' IDENTIFIED WITH unix_socket"
 
-- name: Create MariaDB user for current sudoer
+- name: Create MariaDB user for current sudoer (for maintenance tasks)
   command: mysql -u root --password='{{ mysql.root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ mysql.database }}.* TO '{{ ansible_env.SUDO_USER }}'@'localhost' IDENTIFIED WITH unix_socket"
 
 # TODO: Add proper MariaDB config with socket-only access
