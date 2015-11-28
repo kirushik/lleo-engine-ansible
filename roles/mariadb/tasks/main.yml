@@ -16,6 +16,7 @@
   with_items:
     - mariadb-server
     - php5-mysqlnd
+    - python-mysqldb # Required for mysql admin modules to work
 
 - name: Start MariaDB server (and enable its autostart)
   service: name=mysql state=started enabled=yes
@@ -30,16 +31,12 @@
   when: not available_plugins.stdout | search("unix_socket")
 
 - name: Create database 'dnevnik'
-  command: mysql -u root --password='{{ mysql.root_password }}' -e "CREATE DATABASE {{ mysql.database }}"
-  register: dnevnik_database_creation
-  failed_when: >
-    dnevnik_database_creation.rc != 0 and ("database exists" not in dnevnik_database_creation.stderr)
-  changed_when: "dnevnik_database_creation.rc == 0"
+  mysql_db: login_user=root login_password={{ mysql.root_password }} name={{ mysql.database }}
 
 - name: Create MariaDB user for dnevnik
   command: mysql -u root --password='{{ mysql.root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ mysql.database }}.* TO '{{ engine.name }}'@'localhost' IDENTIFIED WITH unix_socket"
 
-- name: Create MariaDB user for current sudoer
+- name: Create MariaDB user for current sudoer (for maintenance tasks)
   command: mysql -u root --password='{{ mysql.root_password }}' -e "GRANT ALL PRIVILEGES  ON {{ mysql.database }}.* TO '{{ ansible_env.SUDO_USER }}'@'localhost' IDENTIFIED WITH unix_socket"
 
 # TODO: Add proper MariaDB config with socket-only access
