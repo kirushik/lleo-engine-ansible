@@ -10,7 +10,7 @@ _(Please contact me if you need English version of this instruction — it is su
 
 1. Нам понадобится Python и его менеджер зависимостей `pip` на вашем компьютере. Скрипты написаны на языке конфигурации систем `Ansible`, который запускается при помощи Питона.
 
-  Под Убунту достато сделать `sudo apt-get install python-pip`, и всё установится как надо. Под другими линуксами — найдите Python и Pip у себя в пакетном менеджере. Под Windows — [установка Python](https://www.python.org/downloads/windows/) и [установка Pip](https://pip.pypa.io/en/latest/installing/).
+  Под Убунту достаточно сделать `sudo apt-get install python-pip`, и всё установится как надо. Под другими линуксами — найдите Python и Pip у себя в пакетном менеджере. Под Windows — [установка Python](https://www.python.org/downloads/windows/) и [установка Pip](https://pip.pypa.io/en/latest/installing/).
 
 2. Ставим собственно Ansible: `sudo pip install ansible`.
 
