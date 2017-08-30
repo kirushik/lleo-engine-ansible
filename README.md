@@ -55,7 +55,7 @@ ansible-playbook -i servers bootstrap_server.yml -K
 
 [Ставим VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-[Ставим Vagrant](https://www.vagrantup.com/downloads).
+[Ставим Vagrant](https://www.vagrantup.com/downloads.html).
 
 #### Запускаем локальное окружение
 
@@ -85,7 +85,7 @@ vagrant share
 
 Кроме того, использование нашего домена надо активировать в админке VagrantCloud.
 Для этого регистрируемся на https://atlas.hashicorp.com (HashiCorp — компания, создавшая и обслуживающая Vagrant).
-Идём в админку https://atlas.hashicorp.com/settings/organizations/<username>/configuration , и в самом низу добавляем наш домен `shared.example.com` (в этот раз — без звёздочки).
+Идём в админку https://atlas.hashicorp.com/settings/organizations/\<username\>/configuration , и в самом низу добавляем наш домен `shared.example.com` (в этот раз — без звёздочки).
 
 Теперь на локальной машине можно залогиниться в VagrantCloud (`vagrant login`) и пользоваться поддоменами:
 
