@@ -1,8 +1,14 @@
 - name: Install latest python 2.7 repo
-  apt_repository: repo='ppa:fkrull/deadsnakes-python2.7'
+  apt_repository: repo='ppa:jonathonf/python-2.7'
 
 - name: Update apt packages if needed
   apt: update_cache=yes cache_valid_time=3600 upgrade=safe
+
+- name: Ensure python2.7 latest is installed
+  apt:
+    pkg: python2.7
+    state: latest
+    install_recommends: no
 
 - name: Install unattended-upgrades tools
   apt: pkg=unattended-upgrades state=present
