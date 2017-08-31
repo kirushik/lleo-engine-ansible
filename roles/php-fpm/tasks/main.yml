@@ -1,15 +1,15 @@
 ---
-- name: Install php5-fpm and required modules and tools
+- name: Install php-fpm and required modules and tools
   apt: name={{ item }} state=present
   with_items:
-    - php5-fpm
-    - php5-gd
-    - php5-curl
-    - php5-xcache
+    - php7.0-fpm
+    - php7.0-gd
+    - php7.0-curl
+    - php7.0-opcache
   notify: restart php-fpm
 
 - name: Remove defaul php-fpm pool
-  file: name=/etc/php5/fpm/pool.d/www.conf state=absent
+  file: name=/etc/php/7.0/fpm/pool.d/www.conf state=absent
   notify: restart php-fpm
 
 - name: Create php-fpm logfile for {{ engine.name }}
@@ -17,7 +17,7 @@
   changed_when: False # Never report as changed
 
 - name: Create php-fpm pool for our engine
-  template: src=dnevnik.conf.j2 dest=/etc/php5/fpm/pool.d/{{ engine.name }}.conf
+  template: src=dnevnik.conf.j2 dest=/etc/php/7.0/fpm/pool.d/{{ engine.name }}.conf
   notify: restart php-fpm
 
 # TODO Optimize the php-fpm config for production performance
