@@ -13,5 +13,4 @@
     - memcached
     - php-fpm
     - nginx
-    - { role: newrelic, when: vagrant is not defined }
     - lleo-engine
