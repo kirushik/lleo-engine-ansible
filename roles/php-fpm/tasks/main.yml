@@ -3,13 +3,13 @@
   apt: name={{ item }} state=present
   with_items:
     - php-fpm
-    - php7-gd
-    - php7-curl
-    - php7-xcache
+    - php-gd
+    - php-curl
+    - php-opcache
   notify: restart php-fpm
 
 - name: Remove defaul php-fpm pool
-  file: name=/etc/php7/fpm/pool.d/www.conf state=absent
+  file: name=/etc/php7.0/fpm/pool.d/www.conf state=absent
   notify: restart php-fpm
 
 - name: Create php-fpm logfile for {{ engine.name }}
@@ -17,7 +17,7 @@
   changed_when: False # Never report as changed
 
 - name: Create php-fpm pool for our engine
-  template: src=dnevnik.conf.j2 dest=/etc/php7/fpm/pool.d/{{ engine.name }}.conf
+  template: src=dnevnik.conf.j2 dest=/etc/php7.0/fpm/pool.d/{{ engine.name }}.conf
   notify: restart php-fpm
 
 # TODO Optimize the php-fpm config for production performance

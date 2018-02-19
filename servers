@@ -1,2 +1,2 @@
 [servers]
-lleo.pimenov.cc ansible_ssh_user=user
+213.189.208.17 ansible_ssh_user=user
