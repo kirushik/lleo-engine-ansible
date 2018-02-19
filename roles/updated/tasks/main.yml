@@ -1,8 +1,16 @@
 - name: Install latest python 2.7 repo
   apt_repository: repo='ppa:jonathonf/python-2.7'
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Update apt packages if needed
   apt: update_cache=yes cache_valid_time=3600 upgrade=safe
+
+- name: Install aptitude on debian, it is needed
+  apt:
+    pkg: aptitude
+    state: installed
+    install_recommends: no
+  when: ansible_distribution == 'Debian'
 
 - name: Ensure python2.7 latest is installed
   apt:

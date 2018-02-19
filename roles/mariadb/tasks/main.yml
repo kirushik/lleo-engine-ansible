@@ -3,6 +3,7 @@
   apt_key: keyserver=keyserver.ubuntu.com id=0xcbcb082a1bb943db
 - name: Plug in MariaDB repo (Canadian mirror)
   apt_repository: repo='deb  http://ams2.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu {{ ansible_distribution_release }} main' state=present
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Set MariaDB root password for installation
   debconf: name=mysql-server-10.0 question='{{ item }}' value={{ mysql.root_password }} vtype=password
