@@ -6,12 +6,9 @@ engine:
   subdir: "" # Not working as expected at the moment
 
   admin:
-    name: Kirill
-    email: kirushik@example.com
-    password: BeanBagLaterSkyJigsawNode
+    name: lleo
+    email: lleo@lleo.me
+    password: FinForest
 mysql:
-  root_password: KAHxn(sdFXASh=x1
+  root_password: KuRarrE7
   database: dnevnik
-newrelic:
-  application_name: LLeo engine
-  license_key: XXXXXXX

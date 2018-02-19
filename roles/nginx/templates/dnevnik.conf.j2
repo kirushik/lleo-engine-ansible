@@ -24,7 +24,7 @@ server {
     location ~ \.php$ {
       fastcgi_split_path_info ^(.+\.php)(/.+)$;
       
-      # With php5-fpm:
+      # With php-fpm:
       fastcgi_pass unix:/var/run/{{ engine.name }}-fpm.sock;
       fastcgi_index index.php;
       include fastcgi_params;
