@@ -23,12 +23,14 @@ server {
 
     location ~ \.php$ {
       fastcgi_split_path_info ^(.+\.php)(/.+)$;
-      
-      # With php5-fpm:
+
+      # With php7.2-fpm:
       fastcgi_pass unix:/var/run/{{ engine.name }}-fpm.sock;
       fastcgi_index index.php;
       include fastcgi_params;
       fastcgi_param QUERY_STRING qnginx=$request_uri;
+      fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+      fastcgi_param HTTPS $https if_not_empty;
 
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
