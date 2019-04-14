@@ -12,6 +12,3 @@ engine:
 mysql:
   root_password: KAHxn(sdFXASh=x1
   database: dnevnik
-newrelic:
-  application_name: LLeo engine
-  license_key: XXXXXXX
